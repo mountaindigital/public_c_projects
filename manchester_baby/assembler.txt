@@ -1,0 +1,28 @@
+Example assembly code:
+01: LDN 20 -- a comment
+02: SUB 21
+03: STO 22
+04: LDN 22
+05: HLT
+20: NUM -10
+21: NUM 3 -- another comment
+22: NUM 0
+
+Notes:
+Line numbers and comments are not translated to machine code
+Some assembly lines have no operand (e.g. HLT)
+There must be exactly 32 lines of output (filler may be necessary)
+Word length is 32; each line must take up exactly 32 bits
+Machine code is little endian
+Right-most 16 bits are always empty (all 0)
+Left-most 13 bits are the operand (if present)
+Bits 14-16 (starting from left) are the opcode (0 if just data)
+
+Algorithm:
+01. Read line into memory & tokenize
+02. Skip over ': ' token to arrive at mnemonic
+03. Parse mnemonic & save to var
+04. Attempt to parse operand token
+05. If successful, save to var
+06. Store opcode as 0 if unsuccessful
+07. Convert operand and machine code to little-endian binary
